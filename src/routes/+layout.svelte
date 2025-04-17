@@ -4,7 +4,6 @@
 
 <div class="body-div">
   <Menu />
-
   <slot />
 </div>
 

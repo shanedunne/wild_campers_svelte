@@ -3,6 +3,5 @@
 </script>
 
 <div class="body-div container-fluid">
-  <Menu />
 </div>
 
