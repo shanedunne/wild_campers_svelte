@@ -37,3 +37,26 @@
     </div>
   </div>
 </nav>
+
+<style>
+   nav {
+    width: 100vw;
+    background-color: #606c38;
+  }
+  
+  .navbar-brand {
+    color: #2f1d0e;
+    font-weight: bolder;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #2f1d0e;
+    font-weight: bold;
+    padding: 1px 150px;
+    transition: color 0.3s;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #bc6c25;
+  }
+</style>

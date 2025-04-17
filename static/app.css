@@ -4,6 +4,7 @@ html {
     
   }
   
+  /*
   .body-div {
     padding: 0;
     width: auto;
@@ -13,6 +14,7 @@ html {
     font-weight: 400;
     font-style: normal;
   }
+  */
   
   h1,
   h2,
@@ -22,7 +24,7 @@ html {
     color: #2f1d0e;
   }
   
-  /* NAV BAR */
+  /* NAV BAR 
   nav {
     width: 100vw;
     background-color: #606c38;
@@ -43,17 +45,20 @@ html {
   .navbar-nav .nav-link:hover {
     color: #bc6c25;
   }
+
+  */
   
-  /* FORMS */
+  /* FORMS 
   
-  form .form-control,
-  form .form-select {
+  .form-container .form-control,
+  .form-container .form-select {
     background-color: #fcf5d8;
   }
   
-  form .form-control:focus {
+  .form-container .form-control:focus {
     background-color: #fcf5d8;
   }
+  */
   
   /* BUTTONS */
   
@@ -81,7 +86,7 @@ html {
     color: #fefae0;
   }
   
-  /* login button */
+  /* login button 
   .login-button {
     background-color: #283618;
     color: #fefae0;
@@ -92,6 +97,7 @@ html {
     background-color: #606c38;
     color: #fefae0;
   }
+  */
   
   /* SIGNUP LOGIN */
   .form-container {
