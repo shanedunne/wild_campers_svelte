@@ -52,7 +52,6 @@
   .navbar-nav .nav-link {
     color: #2f1d0e;
     font-weight: bold;
-    padding: 1px 150px;
     transition: color 0.3s;
   }
   
