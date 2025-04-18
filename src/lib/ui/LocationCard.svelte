@@ -8,9 +8,7 @@
 <div class="col-md-5 mb-4">
   <div class="card location-card shadow-sm">
     <div class="card-body">
-      <a class="location-open" href={`/location/${_id}`}>
         <h5 class="card-title">{locationName}</h5>
-      </a>
       <p class="card-text">
         <small class="text-muted">
           Latitude: {latitude}, Longitude: {longitude}

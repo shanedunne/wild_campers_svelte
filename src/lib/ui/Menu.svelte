@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { loggedInUser } from "$lib/runes.svelte";
+
   // loggedInUser
 </script>
 
@@ -31,7 +33,7 @@
           <a class="nav-link" href="/admin">Admin</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="nav-link" href="/logout">Logout [{loggedInUser.email}]</a>
         </li>
       </ul>
     </div>
