@@ -9,6 +9,7 @@
   };
   */
 
+
   // temporary cateory list
   const categories = ["Mountain", "Forest", "Beach", "Lake"];
 
@@ -38,9 +39,7 @@
 <div class="container my-4">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-      <h2>Add a location</h2>
       <div class="mb-3">
-        <div class="mb-3">
           <label for="locationName" class="form-label">Location Name</label>
 
           <input
@@ -194,7 +193,6 @@
             onclick={() => addLocation()}>Submit</button>
         </div>
       </div>
-    </div>
   </div>
 </div>
 
