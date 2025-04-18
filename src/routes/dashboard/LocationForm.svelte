@@ -17,11 +17,21 @@
   let lng = $state(-7.15242);
   let selectedCategory = $state("Mountains");
   let locationDescription = $state("Tell us about the location");
+  let accessibleByVehicle = $state();
+  let petFriendly = $state();
+  let swimming = $state();
+  let hiking = $state();
+  let closeToTown = $state();
+  let greatViews = $state();
+  
 
   async function addLocation() {
     console.log(
       `Just added: ${locationName} with latitude of ${lat} and longitude of ${lng}. The location category is described as ${selectedCategory} and the user said the following ${locationDescription}`
     );
+  console.log(
+    `Accessible by vehicle: ${accessibleByVehicle}, Pet friendly: ${petFriendly}, Swimming: ${swimming}, Hiking: ${hiking}, Close to town: ${closeToTown}, Great views: ${greatViews}`
+  );
   }
 </script>
 
@@ -31,7 +41,7 @@
       <h2>Add a location</h2>
       <div class="mb-3">
         <div class="mb-3">
-            <label for="locationName" class="form-label">Location Name</label>
+          <label for="locationName" class="form-label">Location Name</label>
 
           <input
             bind:value={locationName}
@@ -86,9 +96,88 @@
             />
           </div>
         </div>
+        <!--Left side-->
+        <div class="row mb-3">
+          <h4>Good To Know</h4>
+          <div class="col-md-6">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                bind:checked={accessibleByVehicle}
+                id="accessibleByVehicle"
+              />
+              <label class="form-check-label" for="accessibleByVehicle">
+                Accessible By Vehicle
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                bind:checked={petFriendly}
+                value=""
+                id="petFriendly"
+              />
+              <label class="form-check-label" for="petFriendly">
+                Pet Friendly
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                bind:checked={swimming}
+                value=""
+                id="swimming"
+              />
+              <label class="form-check-label" for="swimming">
+                Swimming Nearby
+              </label>
+            </div>
+          </div>
+          <!--right side-->
+          <div class="col-md-6">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                bind:checked={hiking}
+                value=""
+                id="hiking"
+              />
+              <label class="form-check-label" for="hiking">
+                Hiking Nearby
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                bind:checked={closeToTown}
+                value=""
+                id="closeToTown"
+              />
+              <label class="form-check-label" for="closeToTown">
+                Close to Town
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                bind:checked={greatViews}
+                value=""
+                id="greatViews"
+              />
+              <label class="form-check-label" for="greatViews">
+                Great Views
+              </label>
+            </div>
+          </div>
+        </div>
         <div class="mb-3">
-            <label for="locationDescription" class="form-label">Location Description</label>
-
+          <label for="locationDescription" class="form-label">Location Description</label>
           <textarea
             bind:value={locationDescription}
             id="locationDescription"
@@ -98,8 +187,12 @@
             rows="3"
           ></textarea>
         </div>
-        <div class="d-grid"></div>
-        <button type="submit" class="btn submit-button mx-auto" onclick={() => addLocation()}>Submit</button>
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn submit-button mx-auto"
+            onclick={() => addLocation()}>Submit</button>
+        </div>
       </div>
     </div>
   </div>
@@ -117,12 +210,12 @@
     background-color: #283618;
     color: #fefae0;
   }
-   .form-control,
-   .form-select {
-      background-color: #fcf5d8;
-    }
-    
-    .form-control:focus {
-      background-color: #fcf5d8;
-    }
-  </style>
+  .form-control,
+  .form-select {
+    background-color: #fcf5d8;
+  }
+
+  .form-control:focus {
+    background-color: #fcf5d8;
+  }
+</style>
