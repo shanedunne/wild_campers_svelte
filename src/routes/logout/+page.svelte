@@ -6,5 +6,7 @@
   loggedInUser.name = "";
   loggedInUser.token = "";
   loggedInUser._id = "";
+  localStorage.removeItem("wildCampers");
+
   goto("/");
 </script>

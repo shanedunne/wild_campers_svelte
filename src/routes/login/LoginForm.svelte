@@ -17,7 +17,8 @@
       loggedInUser.name = session.name;
       loggedInUser.token = session.token;
       loggedInUser._id = session._id;
-      console.log(`Sesstion: ${JSON.stringify(session)}`);
+      localStorage.wildCampers = JSON.stringify(loggedInUser);
+      console.log(`Session: ${JSON.stringify(session)}`);
       goto("/dashboard");
     } else {
       email = "";
