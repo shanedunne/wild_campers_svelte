@@ -12,10 +12,10 @@ export interface Session {
     _id?: string;
   }
   export interface Location {
-    locationName: string;
-    lat: number;
-    lng: number;
-    selectedCategory: string;
+    name: string;
+    latitude: string;
+    longitude: string;
+    categoryId: string;
     locationDescription: string;
     accessibleByVehicle?: boolean;
     petFriendly?: boolean;
