@@ -1,16 +1,18 @@
 <script lang="ts">
     import LocationCard from "$lib/ui/LocationCard.svelte";
-    import { locations } from "$lib/data/Locations";
+
+    // Declare category type and get list as prop
+  let { locationList = [] } = $props();
 </script>
 
 <div class="container my-4">
   <div class="container my-4 locations-container-card">
     <div class="row justify-content-center">
-      {#each locations as location}
+      {#each locationList as location}
         <LocationCard 
-          locationName={location.locationName}
-          latitude={location.lat}
-          longitude={location.lng}
+          locationName={location.name}
+          latitude={location.latitude}
+          longitude={location.longitude}
         />
       {/each}
     </div>

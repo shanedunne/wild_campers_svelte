@@ -4,13 +4,15 @@
   import LocationForm from "./LocationForm.svelte";
   import ListLocations from "./ListLocations.svelte";
   import { onMount } from "svelte";
-  import type { Category } from "$lib/types/app-types";
+  import type { Category, Location } from "$lib/types/app-types";
   import { appServices } from "$lib/services/app-services";
 
   let categoryList: Category[] = [];
+  let locationList: Location[] = [];
 
   onMount(async () => {
     categoryList = await appServices.getCategories(loggedInUser.token);
+    locationList = await appServices.getLocations(loggedInUser.token);
   });
 </script>
 
@@ -18,5 +20,5 @@
   <LocationForm {categoryList} />
 </Card>
 <Card title="Saved Locations">
-  <ListLocations />
+  <ListLocations {locationList} />
 </Card>
