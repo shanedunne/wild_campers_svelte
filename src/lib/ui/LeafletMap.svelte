@@ -73,8 +73,12 @@
   export async function addMarker(lat: number, lng: number, popupText: string) {
     const leaflet = await import("leaflet");
     L = leaflet.default;
-    L.marker([lat, lng]).addTo(imap);
+    const marker = L.marker([lat, lng]).addTo(imap);
+    const popup = L.popup({ autoClose: false, closeOnClick: false });
+    popup.setContent(popupText);
+    marker.bindPopup(popup);
   }
+
 
 </script>
 
