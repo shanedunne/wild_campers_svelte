@@ -17,12 +17,12 @@ export interface Session {
     longitude: string;
     categoryId: string;
     locationDescription: string;
-    accessibleByVehicle?: boolean;
-    petFriendly?: boolean;
-    swimming?: boolean;
-    hiking?: boolean;
-    closeToTown?: boolean;
-    greatViews?: boolean;
+    accessibleByVehicle: boolean;
+    petFriendly: boolean;
+    swimming: boolean;
+    hiking: boolean;
+    closeToTown: boolean;
+    greatViews: boolean;
     _id?: string;
   }
   export interface Category {

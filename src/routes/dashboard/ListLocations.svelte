@@ -13,6 +13,7 @@
           locationName={location.name}
           latitude={location.latitude}
           longitude={location.longitude}
+          _id={location._id}
         />
       {/each}
     </div>
