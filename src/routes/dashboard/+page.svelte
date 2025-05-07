@@ -3,6 +3,7 @@
   import Card from "$lib/ui/Card.svelte";
   import LocationForm from "./LocationForm.svelte";
   import ListLocations from "./ListLocations.svelte";
+  import Map from "./Map.svelte";
   import { onMount } from "svelte";
   import type { Category, Location } from "$lib/types/app-types";
   import { appServices } from "$lib/services/app-services";
@@ -18,6 +19,9 @@
 
 <Card title="Add A Location">
   <LocationForm {categoryList} />
+</Card>
+<Card title="Locations">
+  <Map/>
 </Card>
 <Card title="Saved Locations">
   <ListLocations {locationList} />
