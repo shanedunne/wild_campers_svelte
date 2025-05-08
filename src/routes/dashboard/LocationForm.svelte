@@ -15,7 +15,8 @@
   */
 
   // Declare category type and get list as prop
-  let { categoryList = [] } = $props();
+  let { categoryList = [], locationEvent = null  } = $props();
+  // let { locationEvent = null } = $props();
 
   // declare message
   let message = $state("");
@@ -64,6 +65,10 @@
           location,
           loggedInUser.token
         );
+
+        // add to map
+        if(locationEvent) locationEvent(location);
+        
         
         if (!success) {
           message = "Error adding location";
@@ -73,8 +78,7 @@
         message = `You have successfully added ${locationName} to Wild Campers!`;
         status = "success";
         
-        // refresh after successful submission
-        setTimeout(() => window.location.reload(), 2000);
+        
       }
     } else {
       message = "Please ensure you have filled in all fields";
@@ -85,7 +89,7 @@
 
 <div class="container my-4">
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
+    <div class="col">
       <div class="mb-3">
         <label for="locationName" class="form-label">Location Name</label>
 

@@ -2,6 +2,10 @@
   import "leaflet/dist/leaflet.css";
   import { onMount } from "svelte";
   import type { Control, Map as LeafletMap } from "leaflet";
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher<{ markerClick: string }>();
+
 
   let { height = 80 } = $props();
   let id = "home-map-id";
@@ -78,6 +82,15 @@
     popup.setContent(popupText);
     marker.bindPopup(popup);
   }
+
+  // move to selected popup
+  export async function moveTo(lat: number, lng: number) {
+    const leaflet = await import("leaflet");
+    L = leaflet.default;
+    imap.flyTo({ lat: lat, lng: lng });
+  }
+
+
 
 
 </script>

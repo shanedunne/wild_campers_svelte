@@ -1,23 +1,58 @@
 <script lang="ts">
-  export let locationName: string;
-  export let latitude: number = 0;
-  export let longitude: number = 0;
-  export let _id = "";
-
- 
+  import type { Location } from "$lib/types/app-types";
+  export let location: Location;
 </script>
 
-<div class="col-md-5 mb-4">
-  <div class="card location-card shadow-sm">
-    <div class="card-body">
-      <a class="location-open" href={`/location/${_id}`}>
-        <h5 class="card-title">{locationName}</h5>
-      </a>
-      <p class="card-text">
-        <small class="text-muted">
-          Latitude: {latitude}, Longitude: {longitude}
-        </small>
-      </p>
+<div class="location-card">
+  <a class="text-reset text-decoration-none" href={`/location/${location._id}`}>
+    <div
+      class="card shadow-sm border-0 h-100 position-relative overflow-hidden"
+    >
+      <div class="row g-0">
+        <div class="col-4">
+          <img
+            src="/images/camping.jpg"
+            alt={location.name}
+            class="img-fluid rounded-start object-fit-cover h-100 w-100"
+          />
+        </div>
+        <div class="col-8">
+          <div class="card-body p-3">
+            <h5 class="card-title fw-bold mb-1">{location.name}</h5>
+            <p class="text-muted mb-1 fw-bold">
+              {location.categoryId}
+            </p>
+
+            <p class="text-muted mb-2 small fw-semibold">
+              <i class="bi bi-compass me-1"></i>{location.latitude} / {location.longitude}
+            </p>
+
+            <p class="card-text text-secondary small mb-0">
+              {location.locationDescription}
+            </p>
+          </div>
+
+          <i
+            class="bi bi-bookmark fs-5 position-absolute top-0 end-0 m-2 text-muted"
+          ></i>
+        </div>
+      </div>
     </div>
-  </div>
+  </a>
 </div>
+
+<style>
+  .location-card:hover {
+    border-color: #606c38;
+    transform: translateY(-2px);
+    transition: all 0.15s ease;
+  }
+
+  .card-body {
+    background-color: #fcf5d8;
+  }
+
+  .location-card {
+    padding: 0;
+  }
+</style>
