@@ -4,6 +4,9 @@
   import type { Category, Location } from "$lib/types/app-types";
   import { appServices } from "$lib/services/app-services";
   import { page } from "$app/stores";
+  import LocationMap from "./LocationMap.svelte";
+  import LocationCard from "$lib/ui/LocationCard.svelte";
+  import Ammenities from "$lib/ui/Ammenities.svelte";
 
   // declare location type with default values
   let location: Location | null = null;
@@ -24,16 +27,7 @@
     }
   });
 
-  const ammenityIcon = (value: boolean, faIcon: string, label: string) => {
-    const colour = value ? "success" : "secondary";
-
-    return `
-			<span class="badge bg-${colour} d-flex align-items-center gap-1 px-3 py-2 w-100">
-				<i class="fas fa-${faIcon}"></i>
-				<span>${label}</span>
-			</span>
-		`;
-  };
+  
 </script>
 
 {#if loading}
@@ -68,43 +62,13 @@
               <small><strong>{location.categoryId}</strong></small>
             </p>
           </div>
-          <div class="location-content">
-            <p>
-              {location.locationDescription}
-            </p>
-            <ul class="list-unstyled row gy-2 amenities">
-              <li class="col-6 col-md-4">
-                {@html ammenityIcon(
-                  location.accessibleByVehicle,
-                  "car",
-                  "Vehicle Access"
-                )}
-              </li>
-              <li class="col-6 col-md-4">
-                {@html ammenityIcon(location.petFriendly, "paw", "Pet Friendly")}
-              </li>
-              <li class="col-6 col-md-4">
-                {@html ammenityIcon(location.swimming, "swimmer", "Swimming")}
-              </li>
-              <li class="col-6 col-md-4">
-                {@html ammenityIcon(location.hiking, "hiking", "Hiking")}
-              </li>
-              <li class="col-6 col-md-4">
-                {@html ammenityIcon(
-                  location.closeToTown,
-                  "city",
-                  "Close to Town"
-                )}
-              </li>
-              <li class="col-6 col-md-4">
-                {@html ammenityIcon(
-                  location.greatViews,
-                  "binoculars",
-                  "Great Views"
-                )}
-              </li>
-            </ul>
+          <div class="location-map">
+            <LocationMap />
           </div>
+          <Ammenities {location} />
+          <p>
+            {location.locationDescription}
+          </p>
         </div>
       </div>
     </div>
@@ -113,5 +77,22 @@
 
 
 <style>
-  
+ 
+
+ :root {
+    --map-height: 45vh;
+  }
+
+  .location-map {
+    height: 50vh;
+    position: static;
+    top: 0;
+  }
+
+  @media (min-width: 992px) {
+    .location-map {
+      position: sticky;
+    }
+
+  }
 </style>
