@@ -7,7 +7,6 @@
   const dispatch = createEventDispatcher<{ markerClick: string }>();
 
 
-  let { height = 80 } = $props();
   let id = "home-map-id";
   let location = { lat: 53.2734, lng: -7.7783203 };
   let zoom = 8;
@@ -74,12 +73,24 @@
   });
 
   // add markers function
-  export async function addMarker(lat: number, lng: number, popupText: string) {
+  export async function addMarker(latitude: string, longitude: string, title: string, img = "", _id: string) {
+
+    let locationURL = `/location/${_id}`;
+    // define popup html
+    const popupHtml = `
+ <div "style="width:190px">
+      <img src=${img} style="width:100%;height:100px;object-fit:cover;border-radius:4px">
+      <a class="text-reset text-decoration-none" href=${locationURL}>
+      <h6 class="mt-2 mb-1" style="font-weight:600">${title}</h6>
+      </a>
+      <small class="text-muted">${latitude}°, ${longitude}°</small>
+    </div>`;
+
     const leaflet = await import("leaflet");
     L = leaflet.default;
-    const marker = L.marker([lat, lng]).addTo(imap);
+    const marker = L.marker([latitude, longitude]).addTo(imap);
     const popup = L.popup({ autoClose: false, closeOnClick: false });
-    popup.setContent(popupText);
+    popup.setContent(popupHtml);
     marker.bindPopup(popup);
   }
 
@@ -95,4 +106,12 @@
 
 </script>
 
-<div id="map-div" class="box" style="height: {height}vh"></div>
+<div id="map-div" class="leaflet-map" ></div>
+
+<style>
+
+.leaflet-map {
+    width: 100%;
+    height: var(--map-height, 43vh);
+  }
+</style>

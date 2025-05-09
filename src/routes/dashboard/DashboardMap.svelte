@@ -20,7 +20,9 @@
       map.addMarker(
         parseFloat(location.latitude),
         parseFloat(location.longitude),
-        location.name
+        location.name,
+        "images/camping.jpg",
+        location._id
       );
     });
 
@@ -35,3 +37,4 @@
 </script>
 
 <LeafletMap  bind:this={map}  />
+

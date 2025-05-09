@@ -12,42 +12,36 @@
   let categoryList: Category[] = [];
   let locationList: Location[] = [];
 
-
-
   let map: DashboardMap;
 
-  async function locationAdded(location:Location) {
+  async function locationAdded(location: Location) {
     locationList = [...locationList, location];
 
     // map.addMarker(parseFloat(location.latitude), parseFloat(location.longitude), location.name);
     // map.moveTo(parseFloat(location.latitude), parseFloat(location.longitude));
-
-
   }
 
   onMount(async () => {
     categoryList = await appServices.getCategories(loggedInUser.token);
     locationList = await appServices.getLocations(loggedInUser.token);
-
-
   });
-
-  
-
 </script>
-<div class="dashboard d-lg-flex">
-    <div class="map-column flex-shrink-0 pt-5">
+
+<div class="dashboard container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-5 order-1 order-lg-1 map-column">
       <Card>
         <DashboardMap />
-</Card>
+      </Card>
     </div>
-    <div class="flex-grow-1 overflow-auto p-3">
+    <div class="col-12 col-lg-7 order-2 order-lg-2 list-column">
       <Card title="Saved Locations">
-        
         <ListLocations {locationList} />
       </Card>
     </div>
-      <!--
+  </div>
+
+  <!--
         
     <div class="row">
       <div class="col">
@@ -58,28 +52,38 @@
     </div>
 
       -->
-    </div>
-
+</div>
 
 <style>
-	/* root flex container */
-	.dashboard{height:100vh;
-  padding-left: 3em;
-  padding-right: 3em;
+  .dashboard {
+    padding-left: 1em;
+    padding-right: 1em;
   }
 
-	
-	.map-column{
-		position:sticky;
-		top:0; left:0;
-		width:100%;
-		height:50vh;
-	}
+  .map-column {
+    height: 50vh;
+    position: static;
+    top: 0;
+  }
 
-	@media (min-width:992px){ 
-		.map-column{
-			width:50vw;
-			height:100vh;
-		}
-	}
+  @media (min-width: 992px) {
+    .map-column {
+      position: sticky;
+      height: 100vh !important;
+    }
+    :root {
+    --map-height: 80vh;
+  }
+
+    .list-column {
+      height: 100vh;
+      overflow-y: auto;
+      padding-inline: 1rem;
+    }
+    .dashboard {
+      height: 100vh;
+      padding-left: 3em;
+      padding-right: 3em;
+    }
+  }
 </style>
