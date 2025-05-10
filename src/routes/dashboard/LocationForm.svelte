@@ -5,16 +5,26 @@
   import Message from "$lib/ui/Message.svelte";
 
   // declare image
-  let imageFiles: File[] | null = null;
+  let imageFiles: File[] = $state([]);
 
   // handle file when selected
   function onFileSelected(e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
-      imageFiles = Array.from(target.files);
-    } else {
-      imageFiles = null;
+      const newImages = Array.from(target.files);
+      for (const image of newImages){
+        imageFiles.push(image);
+      }
+      imageFiles = [...imageFiles];
+
+      target.value = '';
+      
     }
+  }
+
+  // allow for removal of file from imageFiles before submitting
+  function removeImage(image: File) {
+    imageFiles = imageFiles.filter(file => file !== image);
   }
 
   // Declare category type and get list as prop
@@ -255,12 +265,23 @@
           multiple
           onchange={onFileSelected}
         />
-        {#if imageFiles && imageFiles.length > 0}
-          {#each imageFiles as img}
-            <span class="file-name d-block">{img?.name}</span>
+      </div>
+      <div class="selected-images">
+        {#if imageFiles.length > 0}
+        <div class="mt-2">
+          <h6>Selected Images</h6>
+          <ul>
+            {#each imageFiles as img, i (img.name + i)} <li class="d-flex justify-content-between align-items-center mb-1">
+              <span class="file-name">{img.name}</span>
+              <button type="button" class="btn btn-danger btn-sm" onclick={() => removeImage(img)}>Remove</button>
+            </li>
           {/each}
+          </ul>
+        </div>
         {/if}
       </div>
+        
+      
       <div class="d-grid">
         <button
           type="submit"
