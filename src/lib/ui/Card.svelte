@@ -31,11 +31,4 @@
     padding: 1rem;
   }
 
-  .account-card .card-header {
-  background-color: #f6e4c0;
-}
-
-.account-card .card-body {
-  background-color: #fcf5d8;
-}
 </style>

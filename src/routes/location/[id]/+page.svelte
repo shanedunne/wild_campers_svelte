@@ -58,7 +58,7 @@
       <div class="col-lg-5 col-md-12 order-lg-1 order-md-2">
         <section class="mb-4 map-container shadow-sm rounded">
           {#if location.latitude && location.longitude}
-            <LocationMap bind:location />
+            <LocationMap {location} />
           {:else}
             <div class="alert alert-warning">
               Map coordinates not available.
@@ -76,7 +76,7 @@
           class="mb-4 image-carousel-container shadow-sm rounded overflow-hidden"
         >
           {#if location.locationImages && location.locationImages.length > 0}
-            <ImageCarousel bind:location />
+            <ImageCarousel {location} />
           {:else}
             <img
               src="/images/camping.jpg"
