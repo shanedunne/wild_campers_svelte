@@ -55,4 +55,12 @@
     object-fit: cover;
     border-radius: 0.375rem; /* Match card rounding */
   }
+
+  @media (max-width: 992px) {
+    .carousel-item img {
+
+height: 350px;
+object-fit: cover;
+}
+  }
 </style>

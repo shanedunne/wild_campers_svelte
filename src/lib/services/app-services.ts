@@ -139,4 +139,16 @@ export const appServices = {
       return [];
     }
   },
+
+  // get category
+  async getCategory(id: string, token: string): Promise<string> {
+    try {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      const response = await axios.get(this.baseUrl + "/api/categories/" + id);
+      return response.data.categoryName;
+    } catch (error) {
+      console.log(error);
+      return "unknown";
+    }
+  },
 };

@@ -1,6 +1,11 @@
 <script lang="ts">
   import type { Location } from "$lib/types/app-types";
+  import { loggedInUser } from "$lib/runes.svelte";
+  import { onMount } from "svelte";
+  import { appServices } from "$lib/services/app-services";
+
   export let location: Location;
+  
 </script>
 
 <div class="location-card">
@@ -31,9 +36,6 @@
         <div class="col-8">
           <div class="card-body p-3">
             <h5 class="card-title fw-bold mb-1">{location.name}</h5>
-            <p class="text-muted mb-1 fw-bold">
-              {location.categoryId}
-            </p>
 
             <p class="text-muted mb-2 small fw-semibold">
               <i class="bi bi-compass me-1"></i>{location.latitude} / {location.longitude}
@@ -62,6 +64,7 @@
 
   .card-body {
     background-color: #fcf5d8;
+    height: 178px;
   }
 
   .location-card {

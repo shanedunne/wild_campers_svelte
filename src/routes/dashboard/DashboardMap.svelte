@@ -18,8 +18,8 @@
     const locations = await appServices.getLocations(loggedInUser.token);
     locations.forEach((location: Location) => {
       map.addMarker(
-        parseFloat(location.latitude),
-        parseFloat(location.longitude),
+        (location.latitude),
+        (location.longitude),
         location.name,
         location.locationImages[0],
         location._id
@@ -36,5 +36,5 @@
   });
 </script>
 
-<LeafletMap  bind:this={map}  />
+<LeafletMap  bind:this={map} />
 

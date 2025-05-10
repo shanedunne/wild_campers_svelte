@@ -13,6 +13,7 @@
   let location: Location | null = null;
   let loading = true;
   let errorMessage = "";
+  let category: String;
 
   // use location id to
   onMount(async () => {
@@ -22,6 +23,9 @@
       location = await appServices.getLocation(id, token);
       console.log(location);
       loading = false;
+
+      category = await appServices.getCategory(location.categoryId, token);
+
     } catch (error) {
       console.error(error);
       errorMessage = "error getting location data";
@@ -45,8 +49,8 @@
     <header class="text-center mb-4 pt-3">
       <h1 class="display-5 fw-bold">{location.name}</h1>
       <p class="lead text-muted">
-        <i class="bi bi-tag-fill me-1"></i>Category: {location.categoryId ||
-          "N/A"}
+        <i class="bi bi-tag-fill me-1"></i>{category ||
+          ""}
         <span class="mx-2">|</span>
         <i class="bi bi-geo-alt-fill me-1"></i>Lat: {parseFloat(
           location.latitude
@@ -56,7 +60,7 @@
 
     <div class="row g-lg-5 g-md-4 g-3">
       <div class="col-lg-5 col-md-12 order-lg-1 order-md-2">
-        <section class="mb-4 map-container shadow-sm rounded">
+        <section class="mb-4 location-map shadow-sm rounded">
           {#if location.latitude && location.longitude}
             <LocationMap {location} />
           {:else}
