@@ -7,7 +7,11 @@ export const appServices = {
   async signup(user: User): Promise<boolean> {
     try {
       const response = await axios.post(`${this.baseUrl}/api/users`, user);
-      return response.data.success === true;
+      if(response.status === 201 && response.data){
+        return true;
+      }
+      return false;
+      
     } catch (error) {
       console.log(error);
       return false;
