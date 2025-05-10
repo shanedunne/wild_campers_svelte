@@ -23,6 +23,7 @@ export interface Session {
     hiking: boolean;
     closeToTown: boolean;
     greatViews: boolean;
+    locationImages: File[];
     _id?: string;
   }
   export interface Category {

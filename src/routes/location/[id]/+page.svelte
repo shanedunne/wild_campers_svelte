@@ -26,7 +26,6 @@
       errorMessage = "error getting location data";
     }
   });
-
   
 </script>
 
@@ -43,8 +42,7 @@
   </div>
 {:else if location}
   <section class="section">
-    <div class="d-flex justify-content-center" style="min-height: 90vh;">
-      <div class="container">
+      <div class="container-fluid">
         <div class="text-center my-4">
           <!--<img src={location.img} class="location-image img-fluid">-->
         </div>
@@ -70,15 +68,12 @@
             {location.locationDescription}
           </p>
         </div>
-      </div>
     </div>
   </section>
 {/if}
 
 
 <style>
- 
-
  :root {
     --map-height: 45vh;
   }
@@ -93,6 +88,5 @@
     .location-map {
       position: sticky;
     }
-
   }
 </style>

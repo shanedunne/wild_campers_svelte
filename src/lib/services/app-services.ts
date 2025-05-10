@@ -37,25 +37,43 @@ export const appServices = {
     }
   },
   // add location
-  async addLocation(location: Location, token: string) {
+  async addLocation(
+    location: Location,
+    token: string,
+    images?: File[]
+  ): Promise<boolean> {
     try {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      const response = await axios.post(this.baseUrl + "/api/locations", {
-        name: location.name,
-        latitude: location.latitude,
-        longitude: location.longitude,
-        categoryId: location.categoryId,
-        locationDescription: location.locationDescription,
-        accessibleByVehicle: location.accessibleByVehicle,
-        petFriendly: location.petFriendly,
-        swimming: location.swimming,
-        hiking: location.hiking,
-        closeToTown: location.closeToTown,
-        greatViews: location.greatViews,
+      const form = new FormData();
+
+      // add all information to form
+      form.append("name", location.name);
+      form.append("latitude", location.latitude);
+      form.append("longitude", location.longitude);
+      form.append("locationDescription", location.locationDescription);
+      form.append("categoryId", location.categoryId);
+      form.append("accessibleByVehicle", String(location.accessibleByVehicle));
+      form.append("petFriendly", String(location.petFriendly));
+      form.append("swimming", String(location.swimming));
+      form.append("hiking", String(location.hiking));
+      form.append("closeToTown", String(location.closeToTown));
+      form.append("greatViews", String(location.greatViews));
+
+      // if image exists, add it to form
+      if (images && images.length > 0) {
+        for (const img of images) {
+          form.append("locationImage", img, img.name);
+        }
+      }
+
+      const res = await axios.post(this.baseUrl + "/api/locations", form, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       });
-      return response.status == 201;
-    } catch (error) {
-      console.log(error);
+
+      return res.status === 201;
+    } catch (err) {
+      console.error(err);
       return false;
     }
   },
@@ -82,7 +100,7 @@ export const appServices = {
         latitude: data.latitude,
         longitude: data.longitude,
         locationDescription: data.locationDescription,
-        // locationImage: response.data.locationImage,
+        locationImages: data.locationImages,
         accessibleByVehicle: data.accessibleByVehicle,
         petFriendly: data.petFriendly,
         swimming: data.swimming,
@@ -99,7 +117,7 @@ export const appServices = {
         latitude: "",
         longitude: "",
         locationDescription: "",
-        // locationImage: response.data.locationImage,
+        locationImages: [],
         accessibleByVehicle: false,
         petFriendly: false,
         swimming: false,

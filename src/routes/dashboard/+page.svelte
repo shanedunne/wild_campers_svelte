@@ -29,6 +29,9 @@
 
 <div class="dashboard container-fluid">
   <div class="row">
+
+  </div>
+  <div class="row">
     <div class="col-12 col-lg-5 order-1 order-lg-1 map-column">
       <Card>
         <DashboardMap />
@@ -41,7 +44,7 @@
     </div>
   </div>
 
-  <!--
+  
         
     <div class="row">
       <div class="col">
@@ -51,7 +54,7 @@
       </div>
     </div>
 
-      -->
+    
 </div>
 
 <style>

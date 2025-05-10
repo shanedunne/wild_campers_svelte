@@ -4,18 +4,21 @@
   import type { Location } from "$lib/types/app-types";
   import Message from "$lib/ui/Message.svelte";
 
-  /* functionality for uploading file
-  const fileInput = document.querySelector(".file-input");
-  fileInput.onchange = () => {
-    if (fileInput.files.length > 0) {
-      const fileName = document.querySelector(".file-name");
-      fileName.textContent = fileInput.files[0].name;
+  // declare image
+  let imageFiles: File[] | null = null;
+
+  // handle file when selected
+  function onFileSelected(e: Event) {
+    const target = e.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      imageFiles = Array.from(target.files);
+    } else {
+      imageFiles = null;
     }
-  };
-  */
+  }
 
   // Declare category type and get list as prop
-  let { categoryList = [], locationEvent = null  } = $props();
+  let { categoryList = [], locationEvent = null } = $props();
   // let { locationEvent = null } = $props();
 
   // declare message
@@ -40,12 +43,14 @@
       lat &&
       lng &&
       selectedCategory &&
+      imageFiles &&
+      imageFiles.length > 0 &&
       locationDescription !== null
     ) {
       const category = categoryList.find(
         (category) => category.categoryName === selectedCategory
       );
-      
+
       if (category) {
         const location: Location = {
           name: locationName,
@@ -59,17 +64,18 @@
           hiking: hiking,
           closeToTown: closeToTown,
           greatViews: greatViews,
+          locationImages: imageFiles,
         };
-        
+
         const success = await appServices.addLocation(
           location,
-          loggedInUser.token
+          loggedInUser.token,
+          imageFiles
         );
 
         // add to map
-        if(locationEvent) locationEvent(location);
-        
-        
+        if (locationEvent) locationEvent(location);
+
         if (!success) {
           message = "Error adding location";
           status = "danger";
@@ -77,8 +83,6 @@
         }
         message = `You have successfully added ${locationName} to Wild Campers!`;
         status = "success";
-        
-        
       }
     } else {
       message = "Please ensure you have filled in all fields";
@@ -239,6 +243,24 @@
           rows="3"
         ></textarea>
       </div>
+      <div class="mb-3">
+        <label for="locationImage" class="form-label"
+          >Upload Location Image</label
+        >
+        <input
+          id="locationImage"
+          class="form-control file-input"
+          type="file"
+          accept="image/png, image/jpeg"
+          multiple
+          onchange={onFileSelected}
+        />
+        {#if imageFiles && imageFiles.length > 0}
+          {#each imageFiles as img}
+            <span class="file-name d-block">{img?.name}</span>
+          {/each}
+        {/if}
+      </div>
       <div class="d-grid">
         <button
           type="submit"
@@ -246,7 +268,7 @@
           onclick={() => addLocation()}>Submit</button
         >
       </div>
-      
+
       {#if message}
         <div class="mt-3">
           <Message {message} {status} />
