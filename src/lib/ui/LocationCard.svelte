@@ -9,13 +9,25 @@
       class="card shadow-sm border-0 h-100 position-relative overflow-hidden"
     >
       <div class="row g-0">
-        <div class="col-4">
-          <img
-            src="/images/camping.jpg"
-            alt={location.name}
-            class="img-fluid rounded-start object-fit-cover h-100 w-100"
-          />
-        </div>
+        
+          {#if location && location.locationImages.length > 0}
+          <div class="col-4 image-container">
+            <img
+              src={location.locationImages[0]}
+              alt={location.name}
+              class="img-fluid rounded-start object-fit-cover h-100 w-100"
+            />
+         </div>
+          {:else if location}
+          <div class="col-4 image-container">
+              <img
+              src="images/camping.jpg"
+              alt={location.name}
+              class="img-fluid rounded-start object-fit-cover h-100 w-100"
+            />
+          </div>
+          
+          {/if}
         <div class="col-8">
           <div class="card-body p-3">
             <h5 class="card-title fw-bold mb-1">{location.name}</h5>
@@ -54,5 +66,9 @@
 
   .location-card {
     padding: 0;
+  }
+
+  .image-container {
+    height: 178px;
   }
 </style>

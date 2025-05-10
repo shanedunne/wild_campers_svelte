@@ -9,7 +9,7 @@
 
   let map: LeafletMap;
 
-  let location: Location | null = null;
+  let location: Location;
   let loading = true;
   let errorMessage = "";
 
@@ -30,7 +30,7 @@
       parseFloat(location.latitude),
       parseFloat(location.longitude),
       location.name,
-      "images/camping.jpg",
+      location.locationImages[0],
       location._id
     );
 

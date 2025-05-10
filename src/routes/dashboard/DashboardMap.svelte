@@ -21,7 +21,7 @@
         parseFloat(location.latitude),
         parseFloat(location.longitude),
         location.name,
-        "images/camping.jpg",
+        location.locationImages[0],
         location._id
       );
     });
