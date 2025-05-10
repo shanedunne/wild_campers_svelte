@@ -27,8 +27,8 @@
     }
 
     map.addMarker(
-      parseFloat(location.latitude),
-      parseFloat(location.longitude),
+      location.latitude,
+      location.longitude,
       location.name,
       location.locationImages[0],
       location._id

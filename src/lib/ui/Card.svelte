@@ -22,13 +22,20 @@
   }
 
   .card-header {
-    background-color: #fefae0;
+    background-color: #f6e4c0;
     border-bottom: none;
-    padding: 1rem 1.5rem;
+    padding-bottom: 1rem;
   }
 
   .card-body {
-    padding: 0.2rem;
+    padding: 1rem;
   }
+
+  .account-card .card-header {
+  background-color: #f6e4c0;
+}
+
+.account-card .card-body {
+  background-color: #fcf5d8;
+}
 </style>
-  
