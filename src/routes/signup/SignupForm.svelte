@@ -62,9 +62,12 @@
           newUserDetails.password
         );
         if (session) {
+          loggedInUser.email = email;
           loggedInUser.name = session.name;
           loggedInUser.token = session.token;
           loggedInUser._id = session._id;
+          localStorage.wildCampers = JSON.stringify(loggedInUser);
+
           goto("/dashboard");
         } else {
           message =
