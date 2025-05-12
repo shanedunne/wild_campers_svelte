@@ -1,8 +1,36 @@
 import axios from "axios";
 import type { Session, User, Location, Category } from "$lib/types/app-types";
+import { getAccessTokenSilently } from '$lib/services/auth0';
+
 
 export const appServices = {
   baseUrl: "http://localhost:3000",
+
+  // function to apply headers if token
+  async _getAuthHeaders() {
+    const token = await getAccessTokenSilently();
+    if (token) {
+      return {Authorization: `Bearer ${token}`};
+      }
+      console.warn("No access token available for API call.");
+    return {};
+    },
+
+
+    // function to sync progile on backend with auth0 implementation
+  async syncUserProfile(userData?: any): Promise<boolean> {
+    try {
+      const headers = await this._getAuthHeaders();
+      if (!headers.Authorization) return false;
+
+      const response = await axios.post(`${this.baseUrl}/api/users/sync-profile`, userData || {}, { headers });
+      return response.status === 200 || response.status === 201;
+    } catch (error) {
+      console.error("Error syncing user profile:", error);
+      return false;
+    }
+  },
+  
 
   async signup(user: User): Promise<boolean> {
     try {
@@ -11,12 +39,13 @@ export const appServices = {
         return true;
       }
       return false;
-      
+
     } catch (error) {
       console.log(error);
       return false;
     }
   },
+  /*
   // Function to call the api login
   async login(email: string, password: string): Promise<Session | null> {
     try {
@@ -40,6 +69,7 @@ export const appServices = {
       return null;
     }
   },
+  */
   // add location
   async addLocation(
     location: Location,
@@ -47,6 +77,8 @@ export const appServices = {
     images?: File[]
   ): Promise<boolean> {
     try {
+      const headers = await this._getAuthHeaders();
+      if (!headers.Authorization) throw new Error("User not authenticated");
       const form = new FormData();
 
       // add all information to form
@@ -70,9 +102,7 @@ export const appServices = {
       }
 
       const res = await axios.post(this.baseUrl + "/api/locations", form, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+        headers
       });
 
       return res.status === 201;
@@ -83,10 +113,10 @@ export const appServices = {
   },
 
   // get all locations
-  async getLocations(token: string): Promise<Location[]> {
+  async getLocations(): Promise<Location[]> {
     try {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      const response = await axios.get(this.baseUrl + "/api/locations");
+      const headers = await this._getAuthHeaders();
+      const response = await axios.get(this.baseUrl + "/api/locations", {headers});
       return response.data;
     } catch (error) {
       console.log(error);
@@ -94,10 +124,10 @@ export const appServices = {
     }
   },
   // get location by id
-  async getLocation(id: string, token: string): Promise<Location> {
+  async getLocation(id: string): Promise<Location> {
     try {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      const { data } = await axios.get(this.baseUrl + "/api/locations/" + id);
+      const headers = await this._getAuthHeaders();
+      const { data } = await axios.get(this.baseUrl + "/api/locations/" + id, {headers});
       const location: Location = {
         name: data.name,
         categoryId: data.categoryId,
@@ -133,10 +163,10 @@ export const appServices = {
   },
 
   // get all categories
-  async getCategories(token: string): Promise<Category[]> {
+  async getCategories(): Promise<Category[]> {
     try {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      const response = await axios.get(this.baseUrl + "/api/categories");
+      const headers = await this._getAuthHeaders();
+      const response = await axios.get(this.baseUrl + "/api/categories", {headers});
       return response.data;
     } catch (error) {
       console.log(error);
@@ -145,10 +175,10 @@ export const appServices = {
   },
 
   // get category
-  async getCategory(id: string, token: string): Promise<string> {
+  async getCategory(id: string): Promise<string> {
     try {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      const response = await axios.get(this.baseUrl + "/api/categories/" + id);
+      const headers = await this._getAuthHeaders();
+      const response = await axios.get(this.baseUrl + "/api/categories/" + id, {headers});
       return response.data.categoryName;
     } catch (error) {
       console.log(error);

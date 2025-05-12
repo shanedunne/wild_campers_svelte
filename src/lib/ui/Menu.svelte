@@ -1,6 +1,12 @@
 <script lang="ts">
   import { loggedInUser } from "$lib/runes.svelte";
-
+  import {
+    isAuthenticated,
+    user,
+    loginWithRedirect,
+    logout,
+    isLoading,
+  } from "$lib/services/auth0";
   // loggedInUser
 </script>
 
@@ -22,7 +28,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        {#if loggedInUser.email}
+        {#if $isAuthenticated}
           <li class="nav-item">
             <a class="nav-link" href="/account">Account</a>
           </li>
@@ -35,15 +41,12 @@
         </li>
         -->
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout [{loggedInUser.email}]</a>
+            <button class="nav-link" onclick={() => logout()}>Logout [{loggedInUser.email}]</button>
           </li>
-        {/if}
-        {#if !loggedInUser.email}
+        {:else}
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/signup">Signup</a>
+            <button class="btn login-button" onclick={() => loginWithRedirect()}
+              >Log In</button>
           </li>
         {/if}
       </ul>
