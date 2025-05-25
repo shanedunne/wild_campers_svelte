@@ -1,3 +1,6 @@
+import type { UserProfile as Auth0UserProfile } from '@auth0/auth0-spa-js';
+
+
 export interface Session {
     name: string;
     _id: string;
@@ -5,17 +8,27 @@ export interface Session {
   }
   
   export interface User {
-    firstName: string;
-    lastName: string;
+    auth0Id: string;
     email: string;
-    password: string;
+    role: string;
     _id?: string;
   }
+
+  export interface CurrentSession {
+    isLoading: boolean;
+    isAuthenticated: boolean;
+    auth0Profile?: Auth0UserProfile;
+    user?: User;
+    accessToken?: string;
+    error?: any;
+  }
+
   export interface Location {
     name: string;
     latitude: string;
     longitude: string;
     categoryId: string;
+    userId: string;
     locationDescription: string;
     accessibleByVehicle: boolean;
     petFriendly: boolean;

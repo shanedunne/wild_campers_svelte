@@ -35,14 +35,16 @@
           <li class="nav-item">
             <a class="nav-link" href="/dashboard">Dashboard</a>
           </li>
-          <!-- need to add conditional render of admin link 
+          {#if $user?.role === "ADMIN"}
         <li class="nav-item">
           <a class="nav-link" href="/admin">Admin</a>
         </li>
-        -->
+        {/if}
+        
           <li class="nav-item">
-            <button class="nav-link" onclick={() => logout()}>Logout [{loggedInUser.email}]</button>
+            <button class="nav-link" onclick={() => logout()}>Logout {#if $user}[{$user.email}]{/if}</button>
           </li>
+          
         {:else}
           <li class="nav-item">
             <button class="btn login-button" onclick={() => loginWithRedirect()}

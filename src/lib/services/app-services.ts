@@ -1,29 +1,41 @@
 import axios from "axios";
 import type { Session, User, Location, Category } from "$lib/types/app-types";
-import { getAccessTokenSilently } from '$lib/services/auth0';
+import { getAccessTokenSilently, getUser } from '$lib/services/auth0';
 
 
 export const appServices = {
   baseUrl: "http://localhost:3000",
 
-  // function to apply headers if token
-  async _getAuthHeaders() {
-    const token = await getAccessTokenSilently();
-    if (token) {
-      return {Authorization: `Bearer ${token}`};
-      }
-      console.warn("No access token available for API call.");
-    return {};
+ 
+
+    async getToken(): Promise<string | undefined> {
+      return await getAccessTokenSilently();
     },
 
 
     // function to sync progile on backend with auth0 implementation
   async syncUserProfile(userData?: any): Promise<boolean> {
     try {
-      const headers = await this._getAuthHeaders();
-      if (!headers.Authorization) return false;
 
-      const response = await axios.post(`${this.baseUrl}/api/users/sync-profile`, userData || {}, { headers });
+      const token = await this.getToken();
+      if(!token){
+        throw new Error("No Access Token")
+      }
+
+      const auth0Data = await getUser();
+      const payload   = {
+        auth0Id: auth0Data.sub,
+        email:   auth0Data.email,
+        role:    "USER"
+      };
+      const response = await axios.post(`${this.baseUrl}/api/users/sync-profile`, payload, { 
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+
+        }
+
+       });
       return response.status === 200 || response.status === 201;
     } catch (error) {
       console.error("Error syncing user profile:", error);
@@ -32,44 +44,6 @@ export const appServices = {
   },
   
 
-  async signup(user: User): Promise<boolean> {
-    try {
-      const response = await axios.post(`${this.baseUrl}/api/users`, user);
-      if(response.status === 201 && response.data){
-        return true;
-      }
-      return false;
-
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  },
-  /*
-  // Function to call the api login
-  async login(email: string, password: string): Promise<Session | null> {
-    try {
-      const response = await axios.post(
-        `${this.baseUrl}/api/users/authenticate`,
-        { email, password }
-      );
-      if (response.data.success) {
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + response.data.token;
-        const session: Session = {
-          name: response.data.name,
-          token: response.data.token,
-          _id: response.data._id,
-        };
-        return session;
-      }
-      return null;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  },
-  */
   // add location
   async addLocation(
     location: Location,
@@ -77,8 +51,11 @@ export const appServices = {
     images?: File[]
   ): Promise<boolean> {
     try {
-      const headers = await this._getAuthHeaders();
-      if (!headers.Authorization) throw new Error("User not authenticated");
+      const token = await this.getToken();
+      if(!token){
+        throw new Error("No Access Token")
+      }
+
       const form = new FormData();
 
       // add all information to form
@@ -102,7 +79,9 @@ export const appServices = {
       }
 
       const res = await axios.post(this.baseUrl + "/api/locations", form, {
-        headers
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       return res.status === 201;
@@ -115,8 +94,13 @@ export const appServices = {
   // get all locations
   async getLocations(): Promise<Location[]> {
     try {
-      const headers = await this._getAuthHeaders();
-      const response = await axios.get(this.baseUrl + "/api/locations", {headers});
+      const token = await this.getToken();
+      if(!token){
+        throw new Error("No Access Token")
+      }
+      const response = await axios.get(this.baseUrl + "/api/locations", {headers: {
+        Authorization: `Bearer ${token}`
+      }});
       return response.data;
     } catch (error) {
       console.log(error);
@@ -126,8 +110,13 @@ export const appServices = {
   // get location by id
   async getLocation(id: string): Promise<Location> {
     try {
-      const headers = await this._getAuthHeaders();
-      const { data } = await axios.get(this.baseUrl + "/api/locations/" + id, {headers});
+      const token = await this.getToken();
+      if(!token){
+        throw new Error("No Access Token")
+      }
+      const { data } = await axios.get(this.baseUrl + "/api/locations/" + id, {headers: {
+        Authorization: `Bearer ${token}`
+      }});
       const location: Location = {
         name: data.name,
         categoryId: data.categoryId,
@@ -141,6 +130,7 @@ export const appServices = {
         hiking: data.hiking,
         closeToTown: data.closeToTown,
         greatViews: data.greatViews,
+        userId: data.userId
       };
       return location;
     } catch (error) {
@@ -158,6 +148,7 @@ export const appServices = {
         hiking: false,
         closeToTown: false,
         greatViews: false,
+        userId: ""
       };
     }
   },
@@ -165,8 +156,13 @@ export const appServices = {
   // get all categories
   async getCategories(): Promise<Category[]> {
     try {
-      const headers = await this._getAuthHeaders();
-      const response = await axios.get(this.baseUrl + "/api/categories", {headers});
+      const token = await this.getToken();
+      if(!token){
+        throw new Error("No Access Token")
+      }
+      const response = await axios.get(this.baseUrl + "/api/categories", {headers: {
+        Authorization: `Bearer ${token}`
+      }});
       return response.data;
     } catch (error) {
       console.log(error);
@@ -177,8 +173,13 @@ export const appServices = {
   // get category
   async getCategory(id: string): Promise<string> {
     try {
-      const headers = await this._getAuthHeaders();
-      const response = await axios.get(this.baseUrl + "/api/categories/" + id, {headers});
+      const token = await this.getToken();
+      if(!token){
+        throw new Error("No Access Token")
+      }
+      const response = await axios.get(this.baseUrl + "/api/categories/" + id, {headers: {
+        Authorization: `Bearer ${token}`
+      }});
       return response.data.categoryName;
     } catch (error) {
       console.log(error);
