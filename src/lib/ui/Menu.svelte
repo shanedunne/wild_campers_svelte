@@ -29,11 +29,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/dashboard">Dashboard</a>
           </li>
-          <!-- need to add conditional render of admin link 
+          {#if loggedInUser.role === "ADMIN"}
         <li class="nav-item">
           <a class="nav-link" href="/admin">Admin</a>
         </li>
-        -->
+        {/if}
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout [{loggedInUser.email}]</a>
           </li>

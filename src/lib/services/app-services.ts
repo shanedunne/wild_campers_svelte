@@ -6,16 +6,14 @@ export const appServices = {
 
   async signup(user: User): Promise<boolean> {
     try {
-      const response = await axios.post(`${this.baseUrl}/api/users`, user,
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: false
+      const response = await axios.post(`${this.baseUrl}/api/users`, user, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: false,
       });
-      if(response.status === 201 && response.data){
+      if (response.status === 201 && response.data) {
         return true;
       }
       return false;
-      
     } catch (error) {
       console.log(error);
       return false;
@@ -158,6 +156,25 @@ export const appServices = {
     } catch (error) {
       console.log(error);
       return "unknown";
+    }
+  },
+
+  // add categories
+  async addCategory(categoryName: string, token: string): Promise<boolean> {
+    try {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      const response = await axios.post(
+        this.baseUrl + "/api/categories", { categoryName },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
   },
 };
