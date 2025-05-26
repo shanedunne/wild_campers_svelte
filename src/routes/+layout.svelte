@@ -10,6 +10,7 @@
       loggedInUser.email = session.email;
       loggedInUser.name = session.name;
       loggedInUser.token = session.token;
+      loggedInUser.role = session.role;
       loggedInUser._id = session._id;
 
     }

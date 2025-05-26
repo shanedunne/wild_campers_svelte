@@ -16,6 +16,7 @@
       loggedInUser.email = email;
       loggedInUser.name = session.name;
       loggedInUser.token = session.token;
+      loggedInUser.role = session.role;
       loggedInUser._id = session._id;
       localStorage.wildCampers = JSON.stringify(loggedInUser);
       console.log(`Session: ${JSON.stringify(session)}`);

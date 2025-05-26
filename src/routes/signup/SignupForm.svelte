@@ -66,6 +66,7 @@
           loggedInUser.name = session.name;
           loggedInUser.token = session.token;
           loggedInUser._id = session._id;
+          loggedInUser.role = session.role;
           localStorage.wildCampers = JSON.stringify(loggedInUser);
 
           goto("/dashboard");

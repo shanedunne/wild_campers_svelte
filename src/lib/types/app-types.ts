@@ -2,6 +2,7 @@ export interface Session {
     name: string;
     _id: string;
     token: string;
+    role: string;
   }
   
   export interface User {

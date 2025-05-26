@@ -6,7 +6,11 @@ export const appServices = {
 
   async signup(user: User): Promise<boolean> {
     try {
-      const response = await axios.post(`${this.baseUrl}/api/users`, user);
+      const response = await axios.post(`${this.baseUrl}/api/users`, user,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: false
+      });
       if(response.status === 201 && response.data){
         return true;
       }
@@ -30,6 +34,7 @@ export const appServices = {
         const session: Session = {
           name: response.data.name,
           token: response.data.token,
+          role: response.data.role,
           _id: response.data._id,
         };
         return session;
