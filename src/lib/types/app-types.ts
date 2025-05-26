@@ -29,5 +29,5 @@ export interface Session {
   }
   export interface Category {
     categoryName: string;
-    _id?: string;
+    _id: string;
   }

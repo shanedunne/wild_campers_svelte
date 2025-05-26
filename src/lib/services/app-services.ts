@@ -164,7 +164,8 @@ export const appServices = {
     try {
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
       const response = await axios.post(
-        this.baseUrl + "/api/categories", { categoryName },
+        this.baseUrl + "/api/categories",
+        { categoryName },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -172,6 +173,25 @@ export const appServices = {
         }
       );
       return response.data;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  },
+
+  // delete category
+  async deleteCategory(id: string, token: string): Promise<boolean> {
+    try {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      const response = await axios.delete(
+        this.baseUrl + "/api/categories/" + id,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      return response.status >= 200 && response.status < 300;
     } catch (error) {
       console.log(error);
       return false;
