@@ -1,7 +1,7 @@
 <script lang="ts">
   import { loggedInUser } from "$lib/runes.svelte";
 import DashboardCard from "$lib/ui/DashboardCard.svelte"; 
-import LocationForm from "./LocationForm.svelte";
+import LocationForm from "../add-location/LocationForm.svelte";
   import ListLocations from "./ListLocations.svelte";
   import { onMount } from "svelte";
   import type { Category, Location } from "$lib/types/app-types";
@@ -58,15 +58,6 @@ function goToAddLocation() {
     </div>
   </div>
 
-  
-        
-    <div class="row">
-      <div class="col">
-        <DashboardCard title="Add A Location">
-          <LocationForm {categoryList} locationEvent={locationAdded} />
-        </DashboardCard>
-      </div>
-    </div>
 
     
 </div>
