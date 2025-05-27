@@ -78,7 +78,7 @@ export const appServices = {
         },
       });
 
-      return res.status === 201;
+      return res.data;
     } catch (err) {
       console.error(err);
       return false;

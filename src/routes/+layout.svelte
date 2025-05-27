@@ -1,19 +1,18 @@
 <script lang="ts">
   import Menu from "$lib/ui/Menu.svelte";
-  import { browser } from "$app/environment";
   import { loggedInUser } from "$lib/runes.svelte";
 
-  if (browser) {
-    const savedLoggedInUser = localStorage.wildCampers;
-    if (savedLoggedInUser) {
-      const session = JSON.parse(savedLoggedInUser);
-      loggedInUser.email = session.email;
-      loggedInUser.name = session.name;
-      loggedInUser.token = session.token;
-      loggedInUser.role = session.role;
-      loggedInUser._id = session._id;
-
-    }
+  export let data: any;
+  if (data.session) {
+    loggedInUser.email = data.session.email;
+    loggedInUser.name = data.session.name;
+    loggedInUser.token = data.session.token;
+    loggedInUser._id = data.session._id;
+  } else {
+    loggedInUser.email = "";
+    loggedInUser.name = "";
+    loggedInUser.token = "";
+    loggedInUser._id = "";
   }
 </script>
 

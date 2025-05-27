@@ -5,36 +5,20 @@
   import { loggedInUser } from "$lib/runes.svelte";
   import { appServices } from "$lib/services/app-services";
 
-  let email = $state("");
-  let password = $state("");
   let message = $state("");
 
-  async function login() {
-    console.log(`attempting to log in email: ${email} with password ${password}`)
-    let session = await appServices.login(email, password);
-    if (session) {
-      loggedInUser.email = email;
-      loggedInUser.name = session.name;
-      loggedInUser.token = session.token;
-      loggedInUser.role = session.role;
-      loggedInUser._id = session._id;
-      localStorage.wildCampers = JSON.stringify(loggedInUser);
-      console.log(`Session: ${JSON.stringify(session)}`);
-      goto("/dashboard");
-    } else {
-      email = "";
-      password = "";
-      message = "Invalid Credentials";
-    }
-  }
+  
 </script>
 
 <div>
   {#if message}
     <Message {message} />
   {/if}
-  <UserCredentials bind:email bind:password />
-  <button onclick={() => login()} class="login-button btn">Log In</button>
+  <form method="POST" action="?/login">
+    <UserCredentials  />
+  <button class="login-button btn">Log In</button>
+  </form>
+  
 </div>
 
 <style>
