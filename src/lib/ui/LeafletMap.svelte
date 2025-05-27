@@ -3,6 +3,8 @@
   import { onMount } from "svelte";
   import type { Control, Map as LeafletMap } from "leaflet";
   import { createEventDispatcher } from 'svelte';
+  import iconShadow from "leaflet/dist/images/marker-shadow.png";
+  import icon from "leaflet/dist/images/marker-icon.png";
 
   const dispatch = createEventDispatcher<{ markerClick: string }>();
 
@@ -18,6 +20,18 @@
   let overlays: Control.LayersObject = {};
   let baseLayers: any;
   let L: any;
+
+   // Fix icon paths
+   const DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  L.Marker.prototype.options.icon = DefaultIcon;
 
   onMount(async () => {
     const leaflet = await import("leaflet");

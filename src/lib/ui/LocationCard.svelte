@@ -8,7 +8,7 @@
   
 </script>
 
-<div class="location-card">
+<div class="location-card my-2">
   <a class="text-reset text-decoration-none" href={`/location/${location._id}`}>
     <div
       class="card shadow-sm border-0 h-100 position-relative overflow-hidden"
