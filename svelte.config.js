@@ -11,7 +11,7 @@ const config = {
 			assets: 'build', // Default: directory to write static assets to
 			fallback: undefined, // Default: no fallback (for SPAs, you might use 'index.html' or '200.html')
 			precompress: false, // Default
-			strict: true // Default
+			strict: false // Default
 		})
 	}
 };
