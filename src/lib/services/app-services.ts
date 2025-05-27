@@ -1,8 +1,11 @@
 import axios from "axios";
 import type { Session, User, Location, Category } from "$lib/types/app-types";
 
+const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
 export const appServices = {
-  baseUrl: "http://localhost:3000",
+  baseUrl: VITE_API_BASE_URL ||"http://localhost:3000" ,
 
   async signup(user: User): Promise<boolean> {
     try {
