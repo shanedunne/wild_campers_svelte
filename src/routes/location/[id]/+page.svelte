@@ -8,6 +8,7 @@
   import Card from "$lib/ui/Card.svelte";
   import Ammenities from "$lib/ui/Ammenities.svelte";
   import ImageCarousel from "$lib/ui/ImageCarousel.svelte";
+  import LocalWeather from "$lib/ui/LocalWeather.svelte";
 
   // declare location type with default values
   let location: Location | null = null;
@@ -71,7 +72,7 @@
         </section>
 
         <Card title="Local Weather">
-          <p class="text-muted fst-italic">Weather information coming soon!</p>
+          <LocalWeather lat={location.latitude} lon={location.longitude} />
         </Card>
       </div>
 
