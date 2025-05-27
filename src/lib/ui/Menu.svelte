@@ -24,9 +24,6 @@
       <ul class="navbar-nav ms-auto">
         {#if loggedInUser.email}
           <li class="nav-item">
-            <a class="nav-link" href="/account">Account</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/dashboard">Dashboard</a>
           </li>
           {#if loggedInUser.role === "ADMIN"}
