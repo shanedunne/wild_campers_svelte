@@ -19,7 +19,6 @@
       return;
     }
 
-    console.log(`attempting to signup with email ${email}`);
 
     const newUserDetails = {
       firstName: firstName.trim(),
@@ -55,7 +54,6 @@
     try {
       const signupSuccess = await appServices.signup(newUserDetails);
       if (signupSuccess) {
-        console.log("success signing up in");
 
         const session = await appServices.login(
           newUserDetails.email,

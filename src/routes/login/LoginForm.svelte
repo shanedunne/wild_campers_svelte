@@ -10,7 +10,6 @@
   let message = $state("");
 
   async function login() {
-    console.log(`attempting to log in email: ${email} with password ${password}`)
     let session = await appServices.login(email, password);
     if (session) {
       loggedInUser.email = email;
@@ -19,7 +18,6 @@
       loggedInUser.role = session.role;
       loggedInUser._id = session._id;
       localStorage.wildCampers = JSON.stringify(loggedInUser);
-      console.log(`Session: ${JSON.stringify(session)}`);
       goto("/dashboard");
     } else {
       email = "";

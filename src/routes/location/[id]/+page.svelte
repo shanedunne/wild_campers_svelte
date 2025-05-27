@@ -22,7 +22,6 @@
       const id = $page.params.id;
       const token = loggedInUser.token;
       location = await appServices.getLocation(id, token);
-      console.log(location);
       loading = false;
 
       category = await appServices.getCategory(location.categoryId, token);

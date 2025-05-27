@@ -10,7 +10,6 @@
   
     onMount(async () => {
       const token = loggedInUser.token;
-      console.log(token)
       const locations = await appServices.getLocations(loggedInUser.token);
       const categories = await appServices.getCategories(loggedInUser.token);
 

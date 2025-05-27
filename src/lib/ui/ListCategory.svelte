@@ -21,7 +21,6 @@
     if (categoryToDelete) {
       categories = categories.filter((category) => category._id !== id);
     } else {
-      console.log("could not delete category");
     }
   }
 </script>

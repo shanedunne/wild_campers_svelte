@@ -18,7 +18,6 @@ export const appServices = {
       }
       return false;
     } catch (error) {
-      console.log(error);
       return false;
     }
   },
@@ -42,7 +41,6 @@ export const appServices = {
       }
       return null;
     } catch (error) {
-      console.log(error);
       return null;
     }
   },
@@ -95,7 +93,6 @@ export const appServices = {
       const response = await axios.get(this.baseUrl + "/api/locations");
       return response.data;
     } catch (error) {
-      console.log(error);
       return [];
     }
   },
@@ -120,7 +117,6 @@ export const appServices = {
       };
       return location;
     } catch (error) {
-      console.log(error);
       return {
         name: "",
         categoryId: "",
@@ -145,7 +141,6 @@ export const appServices = {
       const response = await axios.get(this.baseUrl + "/api/categories");
       return response.data;
     } catch (error) {
-      console.log(error);
       return [];
     }
   },
@@ -157,7 +152,6 @@ export const appServices = {
       const response = await axios.get(this.baseUrl + "/api/categories/" + id);
       return response.data.categoryName;
     } catch (error) {
-      console.log(error);
       return "unknown";
     }
   },
@@ -177,7 +171,6 @@ export const appServices = {
       );
       return response.data;
     } catch (error) {
-      console.log(error);
       return false;
     }
   },
@@ -196,7 +189,6 @@ export const appServices = {
       );
       return response.status >= 200 && response.status < 300;
     } catch (error) {
-      console.log(error);
       return false;
     }
   },
