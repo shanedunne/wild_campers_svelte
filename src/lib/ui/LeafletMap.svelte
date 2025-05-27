@@ -2,12 +2,11 @@
   import "leaflet/dist/leaflet.css";
   import { onMount } from "svelte";
   import type { Control, Map as LeafletMap } from "leaflet";
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from "svelte";
   import iconShadow from "leaflet/dist/images/marker-shadow.png";
   import icon from "leaflet/dist/images/marker-icon.png";
 
   const dispatch = createEventDispatcher<{ markerClick: string }>();
-
 
   let id = "home-map-id";
   let location = { lat: 53.2734, lng: -7.7783203 };
@@ -21,21 +20,22 @@
   let baseLayers: any;
   let L: any;
 
-   // Fix icon paths
-   const DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
-
-  L.Marker.prototype.options.icon = DefaultIcon;
-
   onMount(async () => {
     const leaflet = await import("leaflet");
     L = leaflet.default;
+
+    // Fix icon paths
+    const DefaultIcon = L.icon({
+      iconUrl: icon,
+      shadowUrl: iconShadow,
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
+
+    L.Marker.prototype.options.icon = DefaultIcon;
+
     baseLayers = {
       Lake: leaflet.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -87,8 +87,13 @@
   });
 
   // add markers function
-  export async function addMarker(latitude: string, longitude: string, title: string, img = "", _id: string) {
-
+  export async function addMarker(
+    latitude: string,
+    longitude: string,
+    title: string,
+    img = "",
+    _id: string
+  ) {
     let locationURL = `/location/${_id}`;
     // define popup html
     const popupHtml = `
@@ -114,17 +119,12 @@
     L = leaflet.default;
     imap.flyTo({ lat: lat, lng: lng });
   }
-
-
-
-
 </script>
 
-<div id="map-div" class="leaflet-map" ></div>
+<div id="map-div" class="leaflet-map"></div>
 
 <style>
-
-.leaflet-map {
+  .leaflet-map {
     width: 100%;
     height: var(--map-height, 43vh);
   }
